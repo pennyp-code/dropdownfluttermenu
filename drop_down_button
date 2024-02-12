@@ -1,0 +1,76 @@
+//builds the dropdownlist
+
+import 'package:get_it/get_it.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+const List<String> list = <String>[
+  'Simpsons',
+  'Get Smart',
+  'Flintstones',
+  'Friends',
+  'Starwars',
+  'Magnum PI',
+  'Adam Ant',
+];
+
+class DropdownButtonApp extends StatefulWidget {
+  static const routeName = '/dropdown_page';
+  const Main({Key key}) : super(key: key);
+  
+  @override
+  _DropdownButtonAppState createState() => _DropdownButtonAppState();
+}
+
+class _DropdownButtonAppState extends State<DropdownButtonApp> {
+  late String dropdownValue = list.elementAt(0);
+
+  void _incrementCounter() {
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        width: MediaQuery.of(context).size.width * 0.7,
+        child: DropdownButton<String>(
+          // hint: const Text('what is the most popular video?'),
+          value: dropdownValue,
+          isExpanded: true,
+          icon: const Icon(
+            Icons.arrow_drop_down_circle_rounded,
+            color: Colors.grey,
+          ),
+          style: const TextStyle(
+              color: Color.fromARGB(255, 99, 99, 99), fontSize: 16),
+          underline: Container(
+            height: 0,
+            color: Colors.white,
+          ),
+          onChanged: (String? value) {
+            // print(dropdownValue);
+            if (kDebugMode) {
+              print(value);
+            }
+            // This is called when the user selects an item.
+            setState(() {
+              // _dropdownValue(value);
+              // value = dropdownValue;
+              dropdownValue = value!;
+              // _writechoosenvalue(value);
+            });
+            // dropdownValue = ;
+            // });
+          },
+          items: list.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+        ));
+  }
+}
